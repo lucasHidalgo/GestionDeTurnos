@@ -13,8 +13,7 @@ class TraerDatos extends Component {
 
   componentWillMount(){
     return fetch('http://localhost/gestiondeturnos/api/api.php',{
-      method: 'POST',
-      body: "qwe"
+      method: 'POST',  
     })
     .then((response) => response.json())
     .then((responseJson) => {      
@@ -31,7 +30,7 @@ class TraerDatos extends Component {
     return (
       <div className="App">
       
-        <h1>PRUEBA</h1>
+        <h5>PRUEBA</h5>
         <h4>{this.state.mensaje}</h4>
        
       </div>
