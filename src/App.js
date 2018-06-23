@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {Router, Route } from 'react-router-dom';
 import Header from './Vistas/Header/Header.js';
 import Login from './Vistas/Login/Login.js';
 import Home from './Vistas/Home/Home';
-import CrearUsuario from './Vistas/Usuarios/CrearUsuario';
+import ListaPacientes from './Vistas/Pacientes/ListaPacientes';
+import Rutas from './Rutas';
+import Footer from './Vistas/Footer/Footer';
+
 
 class App extends Component {
   render() {
     return (      
-      <Router>        
-      <div>      
-        <Route exact path="/" component={Login}/>
-        <Route path="/Home" component={Home}/>        
-        <Route path="/CrearUsuario" component={CrearUsuario}/>        
+     <div>
+       <Header/>
+       <Rutas/>
+       <Footer/>
       </div>
-    </Router>
     );
   }
 }

@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import TraerDatos from '../../PruebasFetchPhp/TraerDatos.js';
-import { BrowserRouter as Router, Link} from 'react-router-dom';
-import Route from 'react-router-dom/Route';
+import {  BrowserRouter as Router,   Route,   Link, Redirect } from 'react-router-dom';
 
 class Login extends Component {
   render() {
-    return (
-    <Router>      
-      <main>       
+    return (        
+      <main>   
+        <form>                     
         <p className="App-intro">
         <input type="text" id="Email"/><br/>
         <input type="password" id="clave"/><br/>
           To get started, edit <code>src/App.js</code> and save to reload.  Main        
-        </p>     
-        <Link to="/home">Home</Link>
+        </p>           
+        <Link onClick="" className="nav-link" to="/Home">Home</Link>
+        </form>
       </main>
-      </Router>
+    
     );
   }
 }

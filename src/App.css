@@ -27,3 +27,10 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+a{
+  color:white
+}
+main{
+  margin-left: 20px;
+  margin-right: 20px;
+}
