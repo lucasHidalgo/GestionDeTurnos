@@ -5,24 +5,34 @@ class FormularioTurno extends Component {
   render() {
     return (
       <Form>
-        <FormGroup>
-          <Label for="exampleEmail">Email</Label>
-          <Input type="email" name="email" id="exampleEmail"  />
-        </FormGroup>
-        <FormGroup>
-          <Label for="examplePassword">Password</Label>
-          <Input type="password" name="password" id="examplePassword" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="exampleSelect">Select</Label>
-          <Input type="select" name="select" id="exampleSelect">
+          <FormGroup>
+          <Label for="Paciente">Paciente</Label>
+          <Input type="select" name="select" id="Paciente">
             <option>1</option>
             <option>2</option>
             <option>3</option>
             <option>4</option>
             <option>5</option>
           </Input>
-        </FormGroup>             
+        </FormGroup> 
+        <FormGroup>
+          <Label for="Medico">Medico</Label>
+          <Input type="select" name="select" id="Medico">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </Input>
+        </FormGroup> 
+        <FormGroup>
+          <Label for="fechaTurno">Fecha</Label>
+          <Input type="date" name="date" id="fechaTurno" placeholder="date placeholder" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="horaTurno">Hora</Label>
+          <Input type="time" name="time" id="horaTurno" placeholder="time placeholder" />
+        </FormGroup>                
       </Form>
     );
   }

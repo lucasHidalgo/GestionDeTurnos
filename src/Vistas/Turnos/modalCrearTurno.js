@@ -23,12 +23,12 @@ class ModalCrearTurno extends Component {
         <Button outline color="success" onClick={this.toggle}>{this.props.buttonLabel} Crear Turno  </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Crear Nuevo Turno</ModalHeader>
-          <ModalBody>
+          <ModalBody>            
             <FormularioTurno/>
           </ModalBody>
           <ModalFooter>
               {/* este boton sera el submit handler*/}
-            <Button color="primary" onClick={this.toggle}>Agregar</Button>{' '}
+            <Button color="primary" onClick={this.toggle}>Agregar</Button>{' '}            
             <Button color="secondary" onClick={this.toggle}>Cancelar</Button>
           </ModalFooter>
         </Modal>
