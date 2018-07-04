@@ -1,20 +1,55 @@
 import React, { Component } from 'react';
-import {  BrowserRouter as Router,   Route,   Link, Redirect } from 'react-router-dom';
-
+import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Badge } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 class Login extends Component {
-  render() {
-    return (        
-      <main>   
-        <form>                     
-        <p className="App-intro">
-        <input type="text" id="Email"/><br/>
-        <input type="password" id="clave"/><br/>
-          To get started, edit <code>src/App.js</code> and save to reload.  Main        
-        </p>           
-        <Link onClick="" className="nav-link" to="/Home">Home</Link>
-        </form>
-      </main>
+
+  constructor(props){
+    super(props);
+    this.state ={
+      usuario: '',
+      contraseña: ''
+    }
+  
+
+  this.login = this.login.bind(this);
+  this.onChange = this.onChange.bind(this);
+  }
+  
+  login(){
+    console.log("Login function");
+  }
+
+  onChange(e){
+    this.setState({[e.target.name]: e.target.value});
     
+  }
+
+
+  render() {
+    return (
+      <div>
+      <Col sm="12" md={{ size: 7, offset: 4 }}>
+      <h2><Badge color="secondary">Iniciar Sesión</Badge></h2>
+      </Col>
+     <Form>
+        <FormGroup>
+        <Col sm="12" md={{ size: 3, offset: 4 }}>        
+    <Label for="Usuario">Usuario</Label>
+    <Input type="text" name="usuario" id="Usuario" placeholder="Ingrese su usuario"  onChange={this.onChange}/>
+    </Col>
+    </FormGroup>
+    <FormGroup>
+    <Col sm="12" md={{ size: 3, offset: 4 }}>
+    <Label for="Contraseña">Contraseña</Label>
+    <Input type="password" name="contraseña" id="Contraseña" placeholder="Ingrese su contraseña"  onChange={this.onChange}/>
+    </Col>
+    </FormGroup>
+    <Col sm="12" md={{ size: 1, offset: 5 }}>
+    <Input type="submit" value="Iniciar Sesión" className="button" onClick={this.login} />
+    </Col>
+    </Form>
+    </div>
     );
   }
 }
