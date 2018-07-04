@@ -6,9 +6,10 @@ class ModalCrearMedico extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
-    };
-
+      modal: false,
+      texto:"",
+      Medico: null
+    };    
     this.toggle = this.toggle.bind(this);
   }
 
@@ -20,11 +21,11 @@ class ModalCrearMedico extends Component {
   render() {
     return (                                
          <div>              
-        <Button outline color="success" onClick={this.toggle}>{this.props.buttonLabel} Crear Medico  </Button>
+        <Button outline color="success" onClick={this.toggle}>{this.props.buttonLabel} {this.props.texto} </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Crear Nuevo Medico</ModalHeader>
           <ModalBody>
-            <FormularioMedico/>
+            <FormularioMedico Medico={this.props.Medico}/>
           </ModalBody>
           <ModalFooter>
               {/* este boton sera el submit handler*/}

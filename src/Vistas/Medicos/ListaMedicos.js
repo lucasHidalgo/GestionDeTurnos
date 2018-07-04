@@ -3,40 +3,64 @@ import { Jumbotron, Table } from 'reactstrap';
 import ModalCrearMedico from './modalCrearMedico';
 
 class ListaMedicos extends Component { 
+  constructor(props) {
+    super(props);
+    this.state = {
+      Medicos : []
+    };
+  }
+
+
+  componentWillMount(){
+    return fetch('http://localhost/gestiondeturnos/api/Medicos/api/obtenerMedicos',{
+      method: 'GET',  
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {      
+      this.setState({
+        Medicos : responseJson
+      });     
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+  
   render() {
+    let medicos = this.state.Medicos;
     return (               
         <main>        
          <Jumbotron>         
-           <ModalCrearMedico/>
+           <ModalCrearMedico texto={"Crear medico"}/>
            <h5>Lista de Medicos</h5>
          <Table hover bordered striped>
         <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+          <tr>            
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Tipo Documento</th>
+            <th>Numero Documento</th>
+            <th>Fecha nacimiento</th>
+            <th>Especialidad</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          {medicos.map((medico,key) => {               
+            return (<tr key={key}>
+              <td >{medico.Nombre}</td>
+              <td>{medico.Apellido}</td>
+              <td>{medico.TipoDocumento}</td>
+              <td>{medico.NumeroDocumento}</td>
+              <td>{medico.FechaNacimiento}</td>
+              <td>{medico.NombreEspecialidad}</td> 
+              <td>
+                <ModalCrearMedico texto={"Editar"} Medico={medico}/> <a>Eliminar</a>
+                </td>
+            </tr>)
+          })}
+          
+
         </tbody>
       </Table>
       </Jumbotron>

@@ -14,7 +14,10 @@ $app->get('/hello/{name}', function (Request $request, Response $response, array
 });
 
 $app->get("/api/obtenerMedicos", function(Request $request, Response $response ){
-    $consulta = "SELECT * FROM usuarios WHERE rol_id in (SELECT id from roles where Nombre = 'Medico')";        
+    $consulta = "SELECT u.ID, u.Nombre,u.Apellido,u.TipoDocumento,u.NumeroDocumento,
+                u.FechaNacimiento, e.Nombre NombreEspecialidad FROM usuarios as u
+                LEFT JOIN especialidades as e on u.Especialidad_ID = e.ID
+                 WHERE rol_id in (SELECT id from roles where Nombre = 'Medico')";        
     try{
         $db = new Database();        
         $db=$db->conectar();
