@@ -133,12 +133,8 @@ ALTER TABLE `usuarios`
 -- Restricciones para tablas volcadas
 --
 
---
--- Filtros para la tabla `roles`
---
-ALTER TABLE `roles`
-  ADD CONSTRAINT `roles_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `usuarios` (`Rol_ID`);
 
+--
 --
 -- Filtros para la tabla `turnos`
 --
