@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+//import {PostData} from '../../Services/PostData.js';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Badge } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
@@ -17,7 +18,10 @@ class Login extends Component {
   }
   
   login(){
-    console.log("Login function");
+    /*PostData('login', this.state).then ((result){
+    let responseJSON = result;  
+    console.log(responseJSON);
+    });*/
   }
 
   onChange(e){
