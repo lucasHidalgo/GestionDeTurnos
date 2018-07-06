@@ -231,7 +231,7 @@ CREATE TABLE `usuarios` (
   `Apellido` varchar(100) NOT NULL,
   `FechaNacimiento` date NOT NULL,
   `TipoDocumento` enum('DNI','LC','LE','CI') NOT NULL,
-  `NumeroDcomento` varchar(15) NOT NULL,
+  `NumeroDocumento` varchar(15) NOT NULL,
   `Rol_ID` int(11) NOT NULL,
   `Especialidad_ID` int(11) DEFAULT NULL,
   `Email` varchar(100) NOT NULL,
