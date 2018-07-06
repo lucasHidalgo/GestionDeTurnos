@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Jumbotron, Table } from 'reactstrap';
 import ModalCrearUsuario from './modalCrearUsuario';
+import ModalBorrarUsuario from './ModalBorrarUsuario';
 
 class ListaUsuarios extends Component { 
   constructor(props) {
@@ -55,7 +56,7 @@ class ListaUsuarios extends Component {
               <td>{usuario.FechaNacimiento}</td>
               <td>{usuario.NombreEspecialidad}</td> 
               <td>
-                <ModalCrearUsuario texto={"Editar"} Usuario={usuario}/> <a>Eliminar</a>
+                <ModalCrearUsuario texto={"Editar"} Usuario={usuario}/><ModalBorrarUsuario texto={"Eliminar"} Usuario={usuario}/>
                 </td>
             </tr>)
           })}

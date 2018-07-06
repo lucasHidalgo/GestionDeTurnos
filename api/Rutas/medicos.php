@@ -100,5 +100,23 @@ $app->put("/Medicos/editarMedico/{id}", function(Request $request, Response $res
     }
 });
 
+$app->delete("/Medicos/borrarMedico/{id}", function(Request $request, Response $response ){
+    $id = $request->getAttribute("id");    
+    
+    $query = "DELETE FROM usuarios
+              WHERE ID = $id";        
+    try{
+        $db = new Database();        
+        $db=$db->conectar();
+        $update = $db->prepare($query);               
+        $update->execute();
+        $arr = array('success'=> true,'error'=>false,'msj'=>"se borro con exito el medico");
+        echo json_encode($arr);
+    }catch(PDOexception $e){
+        $arr = array('error'=> true,'msj'=>$e->getMessage());
+        echo json_encode($arr);
+    }
+});
+
 
 ?>

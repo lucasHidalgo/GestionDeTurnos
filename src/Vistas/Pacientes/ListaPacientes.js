@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Jumbotron, Table } from 'reactstrap';
 import ModalCrearPaciente from './modalCrearPaciente';
+import ModalBorrarPaciente from './modalBorrarPaciente.js';
 
 class ListaPacientes extends Component {
 constructor(props) {
@@ -51,7 +52,7 @@ componentWillMount(){
               <td>{paciente.NumeroDocumento}</td>
               <td>{paciente.FechaNacimiento}</td>
               <td>
-                <ModalCrearPaciente texto={"Editar"} Paciente={paciente}/> <a>Eliminar</a>
+                <ModalCrearPaciente texto={"Editar"} Paciente={paciente}/> <ModalBorrarPaciente texto={"Eliminar"} Paciente={paciente}/> 
                 </td>
             </tr>)
           })}
