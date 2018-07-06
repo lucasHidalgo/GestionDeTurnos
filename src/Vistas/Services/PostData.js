@@ -1,6 +1,6 @@
 export function PostData(type, userData){
 
-	let BaseUrl = '';
+	let BaseUrl = 'http://localhost:3000/';
 
 	return new Promise((resolve, reject) =>{
 

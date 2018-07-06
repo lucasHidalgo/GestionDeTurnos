@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
+import {PostData} from '../Services/PostData';
+import {Redirect} from 'react-router-dom';
+=======
 //import {PostData} from '../../Services/PostData.js';
+>>>>>>> master
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Badge } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
@@ -9,7 +14,8 @@ class Login extends Component {
     super(props);
     this.state ={
       usuario: '',
-      contraseña: ''
+      contraseña: '',
+      redirect: false
     }
   
 
@@ -18,10 +24,28 @@ class Login extends Component {
   }
   
   login(){
+<<<<<<< HEAD
+
+   if(this.state.usuario && this.state.contraseña){
+    PostData('login', this.state).then ((result) =>{
+    let responseJSON = result;  
+    if (responseJSON.userData) {
+      sessionStorage.setItem('userData', responseJSON);
+      this.setState({redirect: true});
+    }
+    else{
+      console.log("Login error");
+    }
+    });
+
+   }
+    
+=======
     /*PostData('login', this.state).then ((result){
     let responseJSON = result;  
     console.log(responseJSON);
     });*/
+>>>>>>> master
   }
 
   onChange(e){
@@ -31,6 +55,17 @@ class Login extends Component {
 
 
   render() {
+
+    if(this.state.redirect){
+     return (<Redirect to={'/Home'}/>)
+    }
+
+    if(sessionStorage.getItem("userData")){
+     return (<Redirect to={'/Home'}/>)
+    }
+
+
+
     return (
       <div>
       <Col sm="12" md={{ size: 7, offset: 4 }}>
