@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
 import {PostData} from '../Services/PostData';
 import {Redirect} from 'react-router-dom';
-=======
 //import {PostData} from '../../Services/PostData.js';
->>>>>>> master
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Badge } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
@@ -24,7 +21,6 @@ class Login extends Component {
   }
   
   login(){
-<<<<<<< HEAD
 
    if(this.state.usuario && this.state.contraseña){
     PostData('login', this.state).then ((result) =>{
@@ -40,12 +36,10 @@ class Login extends Component {
 
    }
     
-=======
     /*PostData('login', this.state).then ((result){
     let responseJSON = result;  
     console.log(responseJSON);
     });*/
->>>>>>> master
   }
 
   onChange(e){

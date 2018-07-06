@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TraerDatos from '../../PruebasFetchPhp/TraerDatos.js';
 import {Redirect} from 'react-router-dom';
 import { Col, Input } from 'reactstrap';
 
