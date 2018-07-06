@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `consultorios` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT, 
   `Nombre` varchar(50) NOT NULL,
   `Observaciones` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -41,7 +41,7 @@ CREATE TABLE `consultorios` (
 --
 
 CREATE TABLE `especialidades` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -52,7 +52,7 @@ CREATE TABLE `especialidades` (
 --
 
 CREATE TABLE `roles` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -63,7 +63,7 @@ CREATE TABLE `roles` (
 --
 
 CREATE TABLE `turnos` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `UsuarioMedicoID` int(11) NOT NULL,
   `UsuarioPacienteID` int(11) NOT NULL,
   `Consultorios_ID` int(11) NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE `turnos` (
 --
 
 CREATE TABLE `usuarios` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(100) NOT NULL,
   `Apellido` varchar(100) NOT NULL,
   `FechaNacimiento` date NOT NULL,
