@@ -3,40 +3,64 @@ import { Jumbotron, Table } from 'reactstrap';
 import ModalCrearUsuario from './modalCrearUsuario';
 
 class ListaUsuarios extends Component { 
+  constructor(props) {
+    super(props);
+    this.state = {
+      Usuarios : []
+    };
+  }
+
+
+  componentWillMount(){
+    return fetch('http://localhost/gestiondeturnos/api/public/Usuarios/obtenerUsuarios',{
+      method: 'GET',  
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {      
+      this.setState({
+        Usuarios : responseJson
+      });     
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+  
   render() {
+    let Usuarios = this.state.Usuarios;
     return (               
         <main>        
          <Jumbotron>         
-           <ModalCrearUsuario/>
-           <h5>Lista de usuarios</h5>
+           <ModalCrearUsuario texto={"Crear usuario"}/>
+           <h5>Lista de Usuarios</h5>
          <Table hover bordered striped>
         <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+          <tr>            
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Tipo Documento</th>
+            <th>Numero Documento</th>
+            <th>Fecha nacimiento</th>
+            <th>Especialidad</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          {Usuarios.map((usuario,key) => {               
+            return (<tr key={key}>
+              <td >{usuario.Nombre}</td>
+              <td>{usuario.Apellido}</td>
+              <td>{usuario.TipoDocumento}</td>
+              <td>{usuario.NumeroDocumento}</td>
+              <td>{usuario.FechaNacimiento}</td>
+              <td>{usuario.NombreEspecialidad}</td> 
+              <td>
+                <ModalCrearUsuario texto={"Editar"} Usuario={usuario}/> <a>Eliminar</a>
+                </td>
+            </tr>)
+          })}
+          
+
         </tbody>
       </Table>
       </Jumbotron>

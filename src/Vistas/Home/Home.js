@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TraerDatos from '../../PruebasFetchPhp/TraerDatos.js';
 
 class Home extends Component {
   render() {

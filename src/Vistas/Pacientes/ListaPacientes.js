@@ -11,7 +11,7 @@ constructor(props) {
   }
 
 componentWillMount(){
-    return fetch('http://localhost/gestiondeturnos/api/Medicos/api/obtenerPacientes',{
+    return fetch('http://localhost/gestiondeturnos/api/public/Pacientes/obtenerPacientes',{
       method: 'GET',  
     })
     .then((response) => response.json())

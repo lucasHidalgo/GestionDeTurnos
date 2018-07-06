@@ -12,7 +12,7 @@ class ListaMedicos extends Component {
 
 
   componentWillMount(){
-    return fetch('http://localhost/gestiondeturnos/api/Medicos/api/obtenerMedicos',{
+    return fetch('http://localhost/gestiondeturnos/api/public/Medicos/obtenerMedicos',{
       method: 'GET',  
     })
     .then((response) => response.json())
