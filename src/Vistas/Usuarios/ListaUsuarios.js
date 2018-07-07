@@ -41,8 +41,7 @@ class ListaUsuarios extends Component {
             <th>Apellido</th>
             <th>Tipo Documento</th>
             <th>Numero Documento</th>
-            <th>Fecha nacimiento</th>
-            <th>Especialidad</th>
+            <th>Fecha nacimiento</th>            
             <th>Acciones</th>
           </tr>
         </thead>
@@ -53,8 +52,7 @@ class ListaUsuarios extends Component {
               <td>{usuario.Apellido}</td>
               <td>{usuario.TipoDocumento}</td>
               <td>{usuario.NumeroDocumento}</td>
-              <td>{usuario.FechaNacimiento}</td>
-              <td>{usuario.NombreEspecialidad}</td> 
+              <td>{usuario.FechaNacimiento}</td>              
               <td>
                 <ModalCrearUsuario texto={"Editar"} Usuario={usuario}/><ModalBorrarUsuario texto={"Eliminar"} Usuario={usuario}/>
                 </td>

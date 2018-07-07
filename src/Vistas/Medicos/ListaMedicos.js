@@ -9,6 +9,7 @@ class ListaMedicos extends Component {
     this.state = {
       Medicos : []
     };
+    this.onAdd = this.onAdd.bind(this);
   }
 
 
@@ -26,13 +27,19 @@ class ListaMedicos extends Component {
       console.error(error);
     });
   }
+  onAdd(medico){    
+    let listaMedicos = this.state.Medicos;
+    listaMedicos.push(JSON.parse(medico));
+    this.setState({listaMedicos});
+    console.log(listaMedicos);
+  }
   
   render() {
     let medicos = this.state.Medicos;
     return (               
         <main>        
          <Jumbotron>         
-           <ModalCrearMedico texto={"Crear medico"}/>
+           <ModalCrearMedico texto={"Crear medico"} onAdd={this.onAdd}/>
            <h5>Lista de Medicos</h5>
          <Table hover bordered striped>
         <thead>

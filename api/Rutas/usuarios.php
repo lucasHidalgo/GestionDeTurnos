@@ -2,7 +2,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-
+session_start();
 $app->get("/Usuarios/obtenerUsuarios", function(Request $request, Response $response ){
     $consulta = "SELECT * FROM usuarios WHERE rol_id not in
      (SELECT id from roles where Nombre = 'Medico' OR Nombre = 'Paciente')";        
@@ -101,10 +101,8 @@ $app->put("/Usuarios/editarUsuario/{id}", function(Request $request, Response $r
 });
 
 $app->delete("/Usuarios/borrarUsuario/{id}", function(Request $request, Response $response ){
-    $id = $request->getAttribute("id");    
-    
     $query = "DELETE FROM usuarios
-              WHERE ID = $id";        
+    WHERE ID = $id";        
     try{
         $db = new Database();        
         $db=$db->conectar();
@@ -117,5 +115,68 @@ $app->delete("/Usuarios/borrarUsuario/{id}", function(Request $request, Response
         echo json_encode($arr);
     }
 });
+
+
+$app->post("/Usuarios/iniciarsesion", function(Request $request, Response $response ){       
+    $email = $request->getParam("usuario");
+    $clave = $request->getParam("contraseña");   
+    
+    $query = "SELECT nombre,apellido, Id FROM  usuarios 
+               WHERE Email='".$email."' AND contraseña= '".$clave."' ";                   
+     try{
+         $db = new Database();        
+         $db=$db->conectar();
+         $ejecutar = $db->query($query);
+         $usuario = $ejecutar->fetchAll(PDO::FETCH_OBJ);
+         if(mysqli_num_rows($usuario) == 1){
+             $arr = array('success'=> true,'error'=>false,);
+             $_SESSION["usuario"] = $usuario;    
+         }else
+             $arr = array('success'=> false,'error'=>true,);
+ 
+         $db = null;         
+         echo json_encode($arr);
+     }catch(PDOexception $e){
+         $arr = array('error'=> true,'msj'=>$e->getMessage());
+         echo json_encode($arr);
+     }
+});
+
+
+$app->get("/Usuarios/existeusuarioensesion", function(Request $request, Response $response ){                     
+    $query = "SELECT nombre,apellido, Id FROM  usuarios 
+    WHERE Email= 'administrador@administrador.com' AND contraseña= '123456' ";                   
+    $db = new Database();        
+    $db=$db->conectar();
+    $ejecutar = $db->query($query);
+    $usuario = $ejecutar->fetchAll(PDO::FETCH_OBJ);  
+    $_SESSION["usuario"] = $usuario;   
+    try{         
+         if(isset($_SESSION["usuario"])){
+            $arr = array('success'=> true,'error'=>false,"usuario"=>$_SESSION["usuario"]);
+         }else                
+            $arr = array('success'=> false,'error'=>true,);          
+         echo json_encode($arr);
+     }catch(PDOexception $e){
+         $arr = array('error'=> true,'msj'=>$e->getMessage());
+         echo json_encode($arr);
+     }
+});
+
+$app->get("/Usuarios/logoffusuario", function(Request $request, Response $response ){                         
+    try{         
+         if(isset($_SESSION["usuario"])){
+            session_unset();
+            session_destroy(); 
+            $arr = array('success'=> true,'error'=>false,"usuario"=>$_SESSION["usuario"]);
+         }else                
+            $arr = array('success'=> false,'error'=>true,);          
+         echo json_encode($arr);
+     }catch(PDOexception $e){
+         $arr = array('error'=> true,'msj'=>$e->getMessage());
+         echo json_encode($arr);
+     }
+});
+
 
 ?>

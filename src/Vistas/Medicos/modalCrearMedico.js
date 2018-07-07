@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button , Modal, ModalHeader,Form, FormGroup, Label, Input, FormText, ModalBody, ModalFooter } from 'reactstrap';
+import { Button , Modal, ModalHeader,Form, FormGroup, Label, Input,  ModalBody, ModalFooter } from 'reactstrap';
 
 
 class ModalCrearMedico extends Component {
@@ -12,30 +12,44 @@ class ModalCrearMedico extends Component {
       TipoDocumento:this.props.Medico != null ?this.props.Medico.TipoDocumento:"",
       NumeroDocumento: this.props.Medico != null ?this.props.Medico.NumeroDocumento:"",
       Especialidad:this.props.Medico != null ? this.props.Medico.Especialidad:"",
-      EspecialidadId:"",
-      Rol:"",
-      RolId:"",
+      EspecialidadId:this.props.Medico != null ? this.props.Medico.EspecialidadId:"",
       FechaNacimiento: this.props.Medico != null ? this.props.Medico.FechaNacimiento:"",
-      Id:this.props.Medico != null ? this.props.Medico.ID:""
+      Id:this.props.Medico != null ? this.props.Medico.ID:"",
+      Especialidades:null
     };      
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);    
     this.handleSubmit = this.handleSubmit.bind(this);
     
   }
+  componentWillMount(){
+    fetch('http://localhost/gestiondeturnos/api/public/Especialidad/obtenerEspecialidades',
+      {
+        method:'get'
+      })
+      .then(response=>response.json())
+      .then(responseJson=>{
+        this.setState({
+          Especialidades:responseJson
+        });        
+      })
+  }
   
-  handleSubmit(event) {    
-    
+  handleSubmit(event) {        
     event.preventDefault();
     const idMedico = this.state.Id;
+    let especialidad = document.querySelectorAll('#especialidad option:checked')[0].text  
+    
     const parametros = JSON.stringify({
       TipoDocumento: this.state.TipoDocumento,
       NumeroDocumento: this.state.NumeroDocumento,
       Nombre: this.state.Nombre,
       Apellido: this.state.Apellido,
-      FechaNacimiento: this.state.FechaNacimiento
-  });
-  console.log(parametros);
+      FechaNacimiento: this.state.FechaNacimiento,
+      ID: idMedico,
+      NombreEspecialidad: especialidad
+  });  
+    this.props.onAdd(parametros);
   let url;
   let metodo;
   if(this.props.Medico != null){
@@ -56,13 +70,13 @@ class ModalCrearMedico extends Component {
           method: metodo,
           body: parametros
       }).then((response) => response.json())
-      .then((responseJson) => {      
+      .then((responseJson) => {    
+        //agregar a la lista  
         console.log(responseJson);
       })
       .catch((error) => {
         console.error(error);
       });
-
       this.setState({
         modal:false      
       });    
@@ -72,7 +86,7 @@ class ModalCrearMedico extends Component {
     return function (e) {
       const state = {};
       state[key] = e.target.value;
-      this.setState(state);
+      this.setState(state);      
   }.bind(this);   
   }
   toggle() {
@@ -80,9 +94,11 @@ class ModalCrearMedico extends Component {
       modal: !this.state.modal
     });
   }
+
   
   render() {
     let datosMedico = this.state;
+    let especialidades = this.state.Especialidades;    
     return (                                
          <div>              
         <Button outline color="success" onClick={this.toggle}>{this.props.buttonLabel} {this.props.texto} </Button>
@@ -112,27 +128,17 @@ class ModalCrearMedico extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="especialidad">Especialidad</Label>
-          <Input type="select" name="especialidad" id="especialidad">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <Input type="select" name="especialidad" id="especialidad"
+           value={datosMedico.EspecialidadId} 
+           onChange={this.handleChange("EspecialidadId")}>
+            {especialidades != null ? especialidades.map((especialidad,key)=>{
+              return <option key={key} value={especialidad.Id}>{especialidad.nombre}</option>
+           }):""}       
           </Input>
-        </FormGroup>   
-        <FormGroup>
-          <Label for="rol">Rol</Label>
-          <Input type="select" name="rol" id="rol">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </Input>
-        </FormGroup> 
+        </FormGroup>                   
         </ModalBody>
         <ModalFooter>              
-            <Button type="button" color="primary" onClick={this.handleSubmit} onClick={this.handleSubmit}>Agregar</Button>{' '}
+            <Button type="button" color="primary"  onClick={this.handleSubmit}>Agregar</Button>{' '}
             <Button type="button" color="secondary" onClick={this.toggle} >Cancelar</Button>
           </ModalFooter>                 
       </Form>

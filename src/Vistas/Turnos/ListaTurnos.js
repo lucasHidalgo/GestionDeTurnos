@@ -3,7 +3,38 @@ import { Jumbotron, Table } from 'reactstrap';
 import ModalCrearTurno from './modalCrearTurno';
 
 class ListaTurnos extends Component { 
+  constructor(props) {
+    super(props);
+    this.state = {
+      Turnos : []
+    };
+    this.onAdd = this.onAdd.bind(this);
+  }
+
+  componentWillMount(){
+    return fetch('http://localhost/gestiondeturnos/api/public/Turnos/obtenerTurnos',{
+      method: 'GET',  
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {      
+      this.setState({
+        Turnos : responseJson
+      });     
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  onAdd(turno){    
+    let listaTurnos = this.state.Turnos;
+    listaTurnos.push(JSON.parse(turno));
+    this.setState({listaTurnos});
+    console.log(listaTurnos);
+  }
+
   render() {
+    let turnos = this.state.Turnos;
     return (               
         <main>        
          <Jumbotron>         
@@ -12,31 +43,26 @@ class ListaTurnos extends Component {
          <Table hover bordered striped>
         <thead>
           <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>Paciente</th>
+            <th>turno</th>
+            <th>Consultorio</th>
+            <th>Fecha</th>
+            <th>Hora</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          {turnos.map((turno,key) => {               
+            return (<tr key={key}>
+              <td >{turno.Nombre}</td>
+              <td>{turno.Apellido}</td>
+              <td>{turno.TipoDocumento}</td>
+              <td>{turno.NumeroDocumento}</td>
+              <td>{turno.FechaNacimiento}</td>              
+              <td>
+                <ModalCrearTurno texto={"Editar"} turno={turno}/>                 
+                </td>
+            </tr>)
+          })}     
         </tbody>
       </Table>
       </Jumbotron>

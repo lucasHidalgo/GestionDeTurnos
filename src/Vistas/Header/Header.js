@@ -16,24 +16,46 @@ class Header extends Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      usuario: ""
     };
   }
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
-  }  
+  } 
+  componentWillMount(){
+    return fetch('http://localhost/gestiondeturnos/api/public/Usuarios/existeusuarioensesion',{
+      method: 'GET',  
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {  
+      if(responseJson.success){        
+        this.setState({
+          usuario : responseJson.usuario[0]
+        });             
+      }else
+        console.log("redirect login");
+      
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+ 
 
   render() {
     const navItems = {
       color: 'white',      
     };
+    let usuario = this.state.usuario    
     return (      
         <header >      
         <Navbar color="dark" light expand="md">
         <img src={logo} className="App-logo" alt="logo" />
           <NavbarBrand style={navItems} tag={Link} to="/Home">Gestion de Turnos "Pandas"</NavbarBrand>
+          {usuario != "" ? <h5>hola {usuario.nombre} {usuario.apellido} </h5> : ""}
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

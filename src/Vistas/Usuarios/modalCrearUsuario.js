@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button , Modal, ModalHeader,Form, FormGroup, Label, Input, FormText, ModalBody, ModalFooter } from 'reactstrap';
+import { Button , Modal, ModalHeader,Form, FormGroup, Label, Input, ModalBody, ModalFooter } from 'reactstrap';
 
 
 class ModalCrearUsuario extends Component {
@@ -20,8 +20,7 @@ class ModalCrearUsuario extends Component {
     
   }
   
-  handleSubmit(event) {    
-    
+  handleSubmit(event) {        
     event.preventDefault();
     const idUsuario = this.state.Id;
     const parametros = JSON.stringify({
@@ -108,7 +107,7 @@ class ModalCrearUsuario extends Component {
         </FormGroup>          
         </ModalBody>
         <ModalFooter>              
-            <Button type="button" color="primary" onClick={this.handleSubmit} onClick={this.handleSubmit}>Agregar</Button>{' '}
+            <Button type="button" color="primary"  onClick={this.handleSubmit}>Agregar</Button>{' '}
             <Button type="button" color="secondary" onClick={this.toggle} >Cancelar</Button>
           </ModalFooter>                 
       </Form>

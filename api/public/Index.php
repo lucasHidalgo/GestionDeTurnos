@@ -11,6 +11,7 @@ $app = new \Slim\App;
 require '../Rutas/medicos.php';
 require '../Rutas/pacientes.php';
 require '../Rutas/usuarios.php';
+require '../Rutas/especialidad.php';
 
 
 $app->run();

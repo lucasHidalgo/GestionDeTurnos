@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button , Modal, ModalHeader,Form, FormGroup, Label, Input, FormText, ModalBody, ModalFooter } from 'reactstrap';
+import { Button , Modal, ModalHeader,Form, FormGroup, Label, Input, ModalBody, ModalFooter } from 'reactstrap';
 
 
 class ModalCrearPaciente extends Component {
@@ -108,7 +108,7 @@ class ModalCrearPaciente extends Component {
         </FormGroup>          
         </ModalBody>
         <ModalFooter>              
-            <Button type="button" color="primary" onClick={this.handleSubmit} onClick={this.handleSubmit}>Agregar</Button>{' '}
+            <Button type="button" color="primary"  onClick={this.handleSubmit}>Agregar</Button>{' '}
             <Button type="button" color="secondary" onClick={this.toggle} >Cancelar</Button>
           </ModalFooter>                 
       </Form>
