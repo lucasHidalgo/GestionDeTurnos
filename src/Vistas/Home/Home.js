@@ -25,6 +25,19 @@ class Home extends Component {
     sessionStorage.setItem("userData",'');
     sessionStorage.clear();
     this.setState({redirect: true});
+
+    fetch('http://localhost/gestiondeturnos/api/public/Usuarios/logoffusuario',{
+      method: 'GET',  
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {      
+      this.setState({
+        Logout : responseJson
+      });     
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
 

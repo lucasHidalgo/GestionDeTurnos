@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {PostData} from '../Services/PostData';
 import {Redirect} from 'react-router-dom';
-//import {PostData} from '../../Services/PostData.js';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Badge } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
@@ -35,12 +34,31 @@ class Login extends Component {
     });
 
    }
+   
+   fetch('http://localhost:3000/Usuario/iniciarsesion', {
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          },
+          method: "POST",
+          body: const parametros = JSON.stringify({usuario: "dato del input",
+ contraseña:"dato del input"});
+      }).then((response) => response.json())
+      }).then((response) => response.json())
+      .then((responseJson) => {      
+        console.log(responseJson);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+      this.setState({
+        modal:false      
+      }); 
     
-    /*PostData('login', this.state).then ((result){
-    let responseJSON = result;  
-    console.log(responseJSON);
-    });*/
   }
+
+  
 
   onChange(e){
     this.setState({[e.target.name]: e.target.value});
