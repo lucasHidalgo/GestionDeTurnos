@@ -38,7 +38,8 @@ class ModalCrearMedico extends Component {
   handleSubmit(event) {        
     event.preventDefault();
     const idMedico = this.state.Id;
-    let especialidad = document.querySelectorAll('#especialidad option:checked')[0].text  
+    let especialidad = document.querySelectorAll('#especialidad option:checked')[0].text;
+    let especialidadId = document.querySelectorAll('#especialidad option:checked')[0].value;  
     
     const parametros = JSON.stringify({
       TipoDocumento: this.state.TipoDocumento,
@@ -47,9 +48,9 @@ class ModalCrearMedico extends Component {
       Apellido: this.state.Apellido,
       FechaNacimiento: this.state.FechaNacimiento,
       ID: idMedico,
-      NombreEspecialidad: especialidad
-  });  
-    this.props.onAdd(parametros);
+      NombreEspecialidad: especialidad,
+      especialidadId:especialidadId
+  });      
   let url;
   let metodo;
   if(this.props.Medico != null){
@@ -57,6 +58,7 @@ class ModalCrearMedico extends Component {
      metodo = "put";
   }else
     {
+      this.props.onAdd(parametros);
       url = "http://localhost/gestiondeturnos/api/public/Medicos/agregarMedico";
       metodo = "post";
     }

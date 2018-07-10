@@ -18,7 +18,7 @@ class Header extends Component {
     this.state = {
       isOpen: false,
       usuario: ""
-    };
+    };    
   }
   toggle() {
     this.setState({
@@ -26,11 +26,12 @@ class Header extends Component {
     });
   } 
   componentWillMount(){
-    return fetch('http://localhost/gestiondeturnos/api/public/Usuarios/existeusuarioensesion',{
+     fetch('http://localhost/gestiondeturnos/api/public/Usuarios/existeusuarioensesion',{
       method: 'GET',  
     })
     .then((response) => response.json())
-    .then((responseJson) => {  
+    .then((responseJson) => { 
+      console.log(responseJson) ;
       if(responseJson.success){        
         this.setState({
           usuario : responseJson.usuario[0]
@@ -51,7 +52,7 @@ class Header extends Component {
     };
     let usuario = this.state.usuario    
     return (      
-        <header >      
+        <header >           
         <Navbar color="dark" light expand="md">
         <img src={logo} className="App-logo" alt="logo" />
           <NavbarBrand style={navItems} tag={Link} to="/Home">Gestion de Turnos "Pandas"</NavbarBrand>

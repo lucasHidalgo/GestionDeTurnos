@@ -28,7 +28,7 @@ $app->post("/Medicos/agregarMedico", function(Request $request, Response $respon
      $tipoDocumento = $request->getParam("TipoDocumento");
      $numeroDocumento = $request->getParam("NumeroDocumento");
      $fechaNacimiento = $request->getParam("FechaNacimiento");
-     
+     $especialidadId = $request->getParam("especialidadId");
     
     $query = "INSERT INTO usuarios (nombre,apellido,tipoDocumento,NumeroDocumento,FechaNacimiento,Contraseña,Email,Especialidad_ID,Rol_Id)
               VALUE(
@@ -39,7 +39,7 @@ $app->post("/Medicos/agregarMedico", function(Request $request, Response $respon
                     :fechaNacimiento,
                     'asd',
                     'asd',
-                    1,
+                    :especialidadId,
                     1)";
                           
     try{
@@ -52,6 +52,7 @@ $app->post("/Medicos/agregarMedico", function(Request $request, Response $respon
         $update->bindParam(":tipoDocumento",$tipoDocumento);
         $update->bindParam(":numeroDocumento",$numeroDocumento);
         $update->bindParam(":fechaNacimiento",$fechaNacimiento);        
+        $update->bindParam(":especialidadId",$especialidadId);        
         $update->execute();        
 
         $arr = array('success'=> true,'error'=>false,'msj'=>"se creo con exito el medico");
@@ -69,6 +70,7 @@ $app->put("/Medicos/editarMedico/{id}", function(Request $request, Response $res
     $tipoDocumento = $request->getParam("TipoDocumento");
     $numeroDocumento = $request->getParam("NumeroDocumento");
     $fechaNacimiento = $request->getParam("FechaNacimiento");
+    $especialidadId = $request->getParam("especialidadId");
     
     $query = "UPDATE usuarios SET
                     nombre  = :nombre,
@@ -78,7 +80,7 @@ $app->put("/Medicos/editarMedico/{id}", function(Request $request, Response $res
                     FechaNacimiento =:fechaNacimiento,
                     contraseña= 'pass',
                     Email='email',
-                    Especialidad_ID=1,
+                    Especialidad_ID=:especialidadId,
                     Rol_Id=1
                     WHERE ID = $id";        
     try{
@@ -90,6 +92,7 @@ $app->put("/Medicos/editarMedico/{id}", function(Request $request, Response $res
         $update->bindParam(":tipoDocumento",$tipoDocumento);
         $update->bindParam(":numeroDocumento",$numeroDocumento);
         $update->bindParam(":fechaNacimiento",$fechaNacimiento);
+        $update->bindParam(":especialidadId",$especialidadId);        
         
         $update->execute();
         $arr = array('success'=> true,'error'=>false,'msj'=>"se edito con exito el medico");

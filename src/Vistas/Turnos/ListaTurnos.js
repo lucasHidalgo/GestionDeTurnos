@@ -12,7 +12,7 @@ class ListaTurnos extends Component {
   }
 
   componentWillMount(){
-    return fetch('http://localhost/gestiondeturnos/api/public/Turnos/obtenerTurnos',{
+     fetch('http://localhost/gestiondeturnos/api/public/Turnos/obtenerTurnos',{
       method: 'GET',  
     })
     .then((response) => response.json())
@@ -20,6 +20,17 @@ class ListaTurnos extends Component {
       this.setState({
         Turnos : responseJson
       });     
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+    fetch('http://localhost/gestiondeturnos/api/public/Turnos/obtenerRelaciones',{
+      method: 'GET',  
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {      
+      console.log(responseJson)   ;
     })
     .catch((error) => {
       console.error(error);
@@ -44,7 +55,7 @@ class ListaTurnos extends Component {
         <thead>
           <tr>
             <th>Paciente</th>
-            <th>turno</th>
+            <th>Medico</th>
             <th>Consultorio</th>
             <th>Fecha</th>
             <th>Hora</th>

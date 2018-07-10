@@ -12,28 +12,13 @@ class Home extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  componentWilMount(){
-    if(sessionStorage.getItem("userData")){
-      console.log("Call User Feed");
-    }
-    else{
-      this.setState({redirect: true});
-    }
-  }
-
-  logout(){
-    sessionStorage.setItem("userData",'');
-    sessionStorage.clear();
-    this.setState({redirect: true});
-
+  logout(){      
     fetch('http://localhost/gestiondeturnos/api/public/Usuarios/logoffusuario',{
       method: 'GET',  
     })
     .then((response) => response.json())
     .then((responseJson) => {      
-      this.setState({
-        Logout : responseJson
-      });     
+      this.setState({redirect: true});      
     })
     .catch((error) => {
       console.error(error);
