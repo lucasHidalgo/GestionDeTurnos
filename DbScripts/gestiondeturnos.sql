@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-07-2018 a las 20:34:20
+-- Tiempo de generación: 13-07-2018 a las 07:11:44
 -- Versión del servidor: 10.1.29-MariaDB
 -- Versión de PHP: 7.2.0
 
@@ -65,6 +65,27 @@ INSERT INTO `especialidades` (`ID`, `Nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `horas`
+--
+
+CREATE TABLE `horas` (
+  `Id` int(11) NOT NULL,
+  `Hora` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `horas`
+--
+
+INSERT INTO `horas` (`Id`, `Hora`) VALUES
+(1, '09:00-10:00'),
+(2, '11:00-12:00'),
+(3, '12:00-13:00'),
+(4, '13:00-14:00');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `roles`
 --
 
@@ -94,8 +115,16 @@ CREATE TABLE `turnos` (
   `UsuarioPacienteID` int(11) NOT NULL,
   `Consultorios_ID` int(11) NOT NULL,
   `Fecha` date NOT NULL,
-  `Hora` enum('09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00') NOT NULL
+  `Hora` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `turnos`
+--
+
+INSERT INTO `turnos` (`ID`, `UsuarioMedicoID`, `UsuarioPacienteID`, `Consultorios_ID`, `Fecha`, `Hora`) VALUES
+(2, 1, 2, 1, '2018-07-15', 1),
+(3, 16, 19, 2, '2018-07-18', 3);
 
 -- --------------------------------------------------------
 
@@ -121,9 +150,14 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`ID`, `Nombre`, `Apellido`, `FechaNacimiento`, `TipoDocumento`, `NumeroDocumento`, `Rol_ID`, `Especialidad_ID`, `Email`, `Contraseña`) VALUES
-(1, 'Lucas', 'Hidalgo', '1995-10-18', 'DNI', '39243287', 1, 1, 'hidalgolucas95@gmail.com', '123456'),
+(1, 'Lucas', 'Hidalgo', '1995-10-18', 'DNI', '39243287', 1, 2, 'email', 'pass'),
 (2, 'paciente', 'paciente', '1990-05-20', 'DNI', '24879654', 2, NULL, 'paciente@paciente.com', '123456'),
-(3, 'Administrador', 'Administrador', '1992-11-14', 'DNI', '36478189', 3, NULL, 'administrador@administrador.com', '123456');
+(3, 'Administrador', 'Administrador', '1992-11-14', 'DNI', '36478189', 3, NULL, 'administrador@administrador.com', '123456'),
+(15, 'asd', 'asd', '2018-12-31', 'DNI', '123456', 1, 1, 'asd', 'asd'),
+(16, 'asd', 'asd', '2018-12-31', 'DNI', '39243', 1, 1, 'asd', 'asd'),
+(17, 'asd', 'asd', '2018-12-31', 'DNI', '123456', 1, 1, 'asd', 'asd'),
+(18, 'usuario', 'apellido', '2018-07-17', 'DNI', '39243287', 3, 1, 'asd', 'asd'),
+(19, 'paciente 2', 'paciente 2', '2018-06-03', 'DNI', ' 39243287', 2, NULL, 'asd', 'asd');
 
 --
 -- Índices para tablas volcadas
@@ -142,6 +176,12 @@ ALTER TABLE `especialidades`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indices de la tabla `horas`
+--
+ALTER TABLE `horas`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
@@ -154,7 +194,8 @@ ALTER TABLE `turnos`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `UsuarioMedicoFK` (`UsuarioMedicoID`) USING BTREE,
   ADD KEY `UsuarioPacienteFK` (`UsuarioPacienteID`) USING BTREE,
-  ADD KEY `Consultorios_FK` (`Consultorios_ID`);
+  ADD KEY `Consultorios_FK` (`Consultorios_ID`),
+  ADD KEY `FK_turnoshoras` (`Hora`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -181,6 +222,12 @@ ALTER TABLE `especialidades`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `horas`
+--
+ALTER TABLE `horas`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
@@ -190,13 +237,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `turnos`
 --
 ALTER TABLE `turnos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas
@@ -206,6 +253,7 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `turnos`
 --
 ALTER TABLE `turnos`
+  ADD CONSTRAINT `FK_turnoshoras` FOREIGN KEY (`Hora`) REFERENCES `horas` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `turnos_ibfk_1` FOREIGN KEY (`Consultorios_ID`) REFERENCES `consultorios` (`ID`),
   ADD CONSTRAINT `turnos_ibfk_2` FOREIGN KEY (`UsuarioMedicoID`) REFERENCES `usuarios` (`ID`),
   ADD CONSTRAINT `turnos_ibfk_3` FOREIGN KEY (`UsuarioPacienteID`) REFERENCES `usuarios` (`ID`);

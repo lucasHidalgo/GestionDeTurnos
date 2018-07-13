@@ -29,8 +29,7 @@ class ModalCrearUsuario extends Component {
       Nombre: this.state.Nombre,
       Apellido: this.state.Apellido,
       FechaNacimiento: this.state.FechaNacimiento
-  });
-  console.log(parametros);
+  });  
   let url;
   let metodo;
   if(this.props.Usuario != null){

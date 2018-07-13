@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Jumbotron, Table } from 'reactstrap';
 import ModalCrearTurno from './modalCrearTurno';
+import ModalBorrarTurno from './ModalBorrarTurno';
 
 class ListaTurnos extends Component { 
   constructor(props) {
@@ -16,25 +17,15 @@ class ListaTurnos extends Component {
       method: 'GET',  
     })
     .then((response) => response.json())
-    .then((responseJson) => {      
+    .then((responseJson) => {   
+      console.log(responseJson);
       this.setState({
         Turnos : responseJson
       });     
     })
     .catch((error) => {
       console.error(error);
-    });
-
-    fetch('http://localhost/gestiondeturnos/api/public/Turnos/obtenerRelaciones',{
-      method: 'GET',  
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {      
-      console.log(responseJson)   ;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    });    
   }
 
   onAdd(turno){    
@@ -49,7 +40,7 @@ class ListaTurnos extends Component {
     return (               
         <main>        
          <Jumbotron>         
-           <ModalCrearTurno/>
+           <ModalCrearTurno texto={"Crear turno"}/>
            <h5>Lista de Turnos</h5>
          <Table hover bordered striped>
         <thead>
@@ -64,13 +55,15 @@ class ListaTurnos extends Component {
         <tbody>
           {turnos.map((turno,key) => {               
             return (<tr key={key}>
-              <td >{turno.Nombre}</td>
-              <td>{turno.Apellido}</td>
-              <td>{turno.TipoDocumento}</td>
-              <td>{turno.NumeroDocumento}</td>
-              <td>{turno.FechaNacimiento}</td>              
+              <td >{turno.pacNombre} {turno.pacApe}</td>
+              <td>{turno.medNombre} {turno.medApe}</td>
+              <td>{turno.Consultorio}</td>
+              <td>{turno.Fecha}</td>
+              <td>{turno.Hora}</td>              
               <td>
-                <ModalCrearTurno texto={"Editar"} turno={turno}/>                 
+
+                <ModalCrearTurno texto={"Editar"} turno={turno}/>  
+                <ModalBorrarTurno texto={"Eliminar"} turno={turno}/>               
                 </td>
             </tr>)
           })}     

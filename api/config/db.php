@@ -18,6 +18,8 @@ class Database{
             echo $e->getMessage();
         }            
     }
+
+    
 }
 
 ?>
